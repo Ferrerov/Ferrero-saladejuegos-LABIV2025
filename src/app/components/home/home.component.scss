@@ -1,0 +1,75 @@
+.container-fluid{
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+
+.row {
+  display: flex;
+  height: 80%;
+  width: 80%;
+  align-items: center;
+  text-align: center;
+  margin: auto;
+}
+
+.col-3{
+  height: 100%;
+  text-align: center;
+  align-items: center;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  display: flex; 
+  flex-direction: column; 
+  justify-content: end;
+  padding: 0%;
+}
+
+#ahorcado{
+  //background-image: url('https://st2.depositphotos.com/5777248/10551/v/450/depositphotos_105512664-stock-illustration-hanged-man-icon-flat-style.jpg');
+  //background-image: url('https://img.rasset.ie/000c8aba-1200.jpg');
+  //background-image: url('https://firebasestorage.googleapis.com/v0/b/saladejuegosferrero-12fef.appspot.com/o/wallhaven-nz7evw.png?alt=media&token=9c5059ea-84d5-4eaa-8417-ec73a1a5a902');
+  background-image: url('https://64.media.tumblr.com/1d2ac2acbd6cfef0ecb7f9b04af8efe8/1eedb686eb2cd1af-88/s1280x1920/3d01b1e97a481808622402d333e970cd1cc3a8e3.jpg');
+}
+#mayoromenor{
+  //background-image: url('https://www.shutterstock.com/image-vector/abstract-digital-vertical-background-glowing-600nw-1544819063.jpg');
+  //background-image: url('https://firebasestorage.googleapis.com/v0/b/saladejuegosferrero-12fef.appspot.com/o/wallhaven-yj56ox.png?alt=media&token=5e336c30-b7e1-4f56-84de-690c26cb2292');
+  background-image: url('https://images.unsplash.com/photo-1529480653440-0e5fd1af911c?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE3fHx8ZW58MHx8fHx8');
+}
+#preguntados{
+  //background-image: url('https://img.freepik.com/vector-gratis/fondo-signo-interrogacion-naranja-espacio-texto_1017-27394.jpg?size=338&ext=jpg&ga=GA1.1.2008272138.1725580800&semt=ais_hybrid');
+  //background-image: url('https://firebasestorage.googleapis.com/v0/b/saladejuegosferrero-12fef.appspot.com/o/wallhaven-858y722.jpg?alt=media&token=9da245d1-4d21-4b37-a1aa-927aac7b353a');
+  background-image: url('https://img.freepik.com/premium-photo/3d-rendering-plenty-question-marks-blue-question-marks-background_493806-4261.jpg?semt=ais_hybrid&w=740');
+}
+#juegopropio{
+  //background-image: url('https://ruibalgames.com/wp-content/uploads/2015/11/juego-15b.jpg');
+  //background-image: url('https://firebasestorage.googleapis.com/v0/b/saladejuegosferrero-12fef.appspot.com/o/wallhaven-4g2g73.jpg?alt=media&token=08df33d9-c602-406f-81d4-1d92b7ff3d29');
+  background-image: url('https://sdmntprwestus2.oaiusercontent.com/files/00000000-657c-61f8-84dd-16b1a5f5c822/raw?se=2025-05-08T12%3A40%3A22Z&sp=r&sv=2024-08-04&sr=b&scid=00000000-0000-0000-0000-000000000000&skoid=ea1de0bc-0467-43d6-873a-9a5cf0a9f835&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-05-08T08%3A09%3A03Z&ske=2025-05-09T08%3A09%3A03Z&sks=b&skv=2024-08-04&sig=LSZIjdrKqGQEpo578LHID13RgdVK4xzVrKwsoJv1LB8%3D');
+}
+
+.fade {
+  opacity:1;
+  -webkit-box-shadow:  0px 7px 10px 1px rgba(0, 0, 0, .7);
+  box-shadow:  0px 5px 10px 1px rgba(0, 0, 0, .7);
+}
+
+.fade:hover {
+  opacity:.5;
+  transition:all .5s ease-in-out;
+  -moz-transition:all .5s ease-in-out;
+  -webkit-transition:all .5s ease-in-out;
+}
+
+h2{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #F7F7F2;
+  font-weight: 500;
+  width: 100%;
+  background-color: #434343;
+  height: 10%;
+  margin-bottom: 0%;
+}

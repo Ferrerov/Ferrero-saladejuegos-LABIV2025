@@ -1,0 +1,74 @@
+form{
+    width: 500px;
+    margin: auto;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+mat-form-field{
+    width: 300px;
+    padding: 5px;
+}
+.button{
+    width: 300px;
+    margin: auto !important;
+}
+
+#errorFirebase{
+    padding-top: 5px;
+}
+
+.row{
+    padding-top: 3px;
+    padding-bottom: 3px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+#accesoRapido{
+    width: 500px;
+    text-align: center;
+    justify-content: center;
+    margin: auto;
+    padding-top: 20px;
+}
+
+mat-card{
+    width: 500px;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+
+#usuariosPreestablecidos
+{
+    padding-top: 30px;
+}
+
+#formulario{
+    align-items: center;
+    justify-content: center;
+}
+
+#pagina{
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 0%;
+    padding: 0%;
+}
+
+#enzo{
+    background-color: red;
+}
+
+#inicioSesion
+{
+    padding-bottom: 20px;
+    padding-top: 20px;
+}

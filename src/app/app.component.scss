@@ -1,0 +1,20 @@
+app-navbar {
+    height: 4vh; /* El navbar ocupará el 10% de la pantalla */
+  }
+  
+  .flex-grow-1 {
+    overflow-y: auto; /* Si el contenido dentro del router-outlet excede la pantalla, tendrá scroll */
+  }
+  
+#fondo{
+  //background-image: url('https://firebasestorage.googleapis.com/v0/b/saladejuegosferrero-12fef.appspot.com/o/wallhaven-4xpw3n.png?alt=media');
+  background-image: url('https://firebasestorage.googleapis.com/v0/b/saladejuegosferrero-12fef.appspot.com/o/wallhaven-g8pq6l.png?alt=media&token=f94e3cc3-7375-4c73-9d5d-1e00dfaec22e');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 96vh;
+}
+
+app-chat{
+  z-index: 1000;
+}

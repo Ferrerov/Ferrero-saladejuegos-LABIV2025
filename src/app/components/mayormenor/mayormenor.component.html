@@ -1,0 +1,158 @@
+<div class="container-flex" id="pagina">
+  <div class="row">
+    <div class="carta col" [ngClass]="{ 'animacion-activa': animacionActiva }">
+      <mat-card>
+        <img src="{{ imagenCarta }}" />
+      </mat-card>
+    </div>
+    <div class="interfaz col">
+      <div class="botones">
+        @if(!primeraCartaDada || vidas == 0) { @if(!primeraCartaDada) {
+        <button class="comenzar" mat-fab extended (click)="darCarta()">
+          <mat-icon fontSet="material-symbols-outlined">playing_cards</mat-icon>
+          <span>Comenzar</span>
+        </button>
+        } @else{
+        <button class="comenzar" mat-fab extended (click)="darDeNuevo()">
+          <mat-icon fontSet="material-symbols-outlined">playing_cards</mat-icon>
+          <span>Dar de nuevo</span>
+        </button>
+        } } @else {
+        <button mat-fab extended (click)="predecirValor('mayor')">
+          <mat-icon>arrow_upward</mat-icon>
+          Mayor
+        </button>
+        <button mat-fab extended (click)="predecirValor('menor')">
+          <mat-icon>arrow_downward</mat-icon>
+          Menor
+        </button>
+        }
+      </div>
+      <div class="desarrollo">
+        <div class="vidas">
+          <div class="vida-activa">
+            @if(vidas > 0) {
+            <svg
+              width="800px"
+              height="800px"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M11.8456 6.42726L12 6.59097L12.1544 6.42726C14.132 4.33053 17.4026 4.57697 19.0807 6.94915C20.57 9.05459 20.2133 12.0335 18.275 13.6776L12 19L5.725 13.6776C3.78668 12.0335 3.42999 9.05459 4.91934 6.94915C6.59738 4.57698 9.86801 4.33053 11.8456 6.42726Z"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            } @if(vidas > 1){
+            <svg
+              width="800px"
+              height="800px"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M11.8456 6.42726L12 6.59097L12.1544 6.42726C14.132 4.33053 17.4026 4.57697 19.0807 6.94915C20.57 9.05459 20.2133 12.0335 18.275 13.6776L12 19L5.725 13.6776C3.78668 12.0335 3.42999 9.05459 4.91934 6.94915C6.59738 4.57698 9.86801 4.33053 11.8456 6.42726Z"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            } @if(vidas > 2) {
+            <svg
+              width="800px"
+              height="800px"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M11.8456 6.42726L12 6.59097L12.1544 6.42726C14.132 4.33053 17.4026 4.57697 19.0807 6.94915C20.57 9.05459 20.2133 12.0335 18.275 13.6776L12 19L5.725 13.6776C3.78668 12.0335 3.42999 9.05459 4.91934 6.94915C6.59738 4.57698 9.86801 4.33053 11.8456 6.42726Z"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            } @if(vidas > 3) {
+            <svg
+              width="800px"
+              height="800px"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M11.8456 6.42726L12 6.59097L12.1544 6.42726C14.132 4.33053 17.4026 4.57697 19.0807 6.94915C20.57 9.05459 20.2133 12.0335 18.275 13.6776L12 19L5.725 13.6776C3.78668 12.0335 3.42999 9.05459 4.91934 6.94915C6.59738 4.57698 9.86801 4.33053 11.8456 6.42726Z"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            }
+          </div>
+          <div class="vida-perdida">
+            @if(vidas < 1) {
+            <svg
+              width="800px"
+              height="800px"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M19 5L18.0864 5.91358M5 19L8.21252 15.7875M18.0864 5.91358C16.3142 4.5616 13.7913 4.69173 12.1544 6.42726L12 6.59097L11.8456 6.42726C9.86801 4.33053 6.59738 4.57698 4.91934 6.94915C3.42999 9.05459 3.78668 12.0335 5.725 13.6776L8.21252 15.7875M18.0864 5.91358L8.21252 15.7875M9.64206 17L12 19L18.275 13.6776C19.9081 12.2924 20.4185 9.95956 19.6479 8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            } @if(vidas < 2) {
+            <svg
+              width="800px"
+              height="800px"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M19 5L18.0864 5.91358M5 19L8.21252 15.7875M18.0864 5.91358C16.3142 4.5616 13.7913 4.69173 12.1544 6.42726L12 6.59097L11.8456 6.42726C9.86801 4.33053 6.59738 4.57698 4.91934 6.94915C3.42999 9.05459 3.78668 12.0335 5.725 13.6776L8.21252 15.7875M18.0864 5.91358L8.21252 15.7875M9.64206 17L12 19L18.275 13.6776C19.9081 12.2924 20.4185 9.95956 19.6479 8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            } @if(vidas < 3) {
+            <svg
+              width="800px"
+              height="800px"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M19 5L18.0864 5.91358M5 19L8.21252 15.7875M18.0864 5.91358C16.3142 4.5616 13.7913 4.69173 12.1544 6.42726L12 6.59097L11.8456 6.42726C9.86801 4.33053 6.59738 4.57698 4.91934 6.94915C3.42999 9.05459 3.78668 12.0335 5.725 13.6776L8.21252 15.7875M18.0864 5.91358L8.21252 15.7875M9.64206 17L12 19L18.275 13.6776C19.9081 12.2924 20.4185 9.95956 19.6479 8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            } @if(vidas < 4) {
+            <svg
+              width="800px"
+              height="800px"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M19 5L18.0864 5.91358M5 19L8.21252 15.7875M18.0864 5.91358C16.3142 4.5616 13.7913 4.69173 12.1544 6.42726L12 6.59097L11.8456 6.42726C9.86801 4.33053 6.59738 4.57698 4.91934 6.94915C3.42999 9.05459 3.78668 12.0335 5.725 13.6776L8.21252 15.7875M18.0864 5.91358L8.21252 15.7875M9.64206 17L12 19L18.275 13.6776C19.9081 12.2924 20.4185 9.95956 19.6479 8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            }
+          </div>
+        </div>
+        <div class="puntaje">
+          <span>{{ puntos }} aciertos</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

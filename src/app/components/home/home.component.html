@@ -1,26 +1,28 @@
 <div class="container-fluid">
-    <div class="row">
-      <div class="col-3 fade" id="ahorcado">
-        <h2>Ahorcado</h2>
-      </div>
-      <div
-        class="col-3 fade"
-        id="mayoromenor"
-      >
-        <h2>Mayor o Menor</h2>
-      </div>
-      <div
-        class="col-3 fade"
-        id="preguntados"
-      >
-        <h2>Preguntados</h2>
-      </div>
-      <div
-        class="col-3 fade"
-        id="juegopropio"
-      >
-        <h2>Juego del 15</h2>
-      </div>
+  <div class="row">
+    <div class="col-3 fade" id="ahorcado" (click)="OnClickJuego('ahorcado')">
+      <h2>Ahorcado</h2>
+    </div>
+    <div
+      class="col-3 fade"
+      id="mayoromenor"
+      (click)="OnClickJuego('mayormenor')"
+    >
+      <h2>Mayor o Menor</h2>
+    </div>
+    <div
+      class="col-3 fade"
+      id="preguntados"
+      (click)="OnClickJuego('preguntados')"
+    >
+      <h2>Preguntados</h2>
+    </div>
+    <div
+      class="col-3 fade"
+      id="juegopropio"
+      (click)="OnClickJuego('juegodelquince')"
+    >
+      <h2>Juego del 15</h2>
     </div>
   </div>
-  
+</div>

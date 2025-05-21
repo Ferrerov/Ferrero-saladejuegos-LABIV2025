@@ -1,0 +1,227 @@
+@-webkit-keyframes heartbeat {
+  from {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-transform-origin: center center;
+    transform-origin: center center;
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+  }
+  10% {
+    -webkit-transform: scale(0.91);
+    transform: scale(0.91);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+  }
+  17% {
+    -webkit-transform: scale(0.98);
+    transform: scale(0.98);
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+  }
+  33% {
+    -webkit-transform: scale(0.87);
+    transform: scale(0.87);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+  }
+  45% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+  }
+}
+@keyframes heartbeat {
+  from {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-transform-origin: center center;
+    transform-origin: center center;
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+  }
+  10% {
+    -webkit-transform: scale(0.91);
+    transform: scale(0.91);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+  }
+  17% {
+    -webkit-transform: scale(0.98);
+    transform: scale(0.98);
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+  }
+  33% {
+    -webkit-transform: scale(0.87);
+    transform: scale(0.87);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+  }
+  45% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+  }
+}
+
+#pagina {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+  width: 100vw;
+  position: relative;
+  .puntaje-historico {
+    height: 100%;
+    width: 100%;
+    z-index: 1002;
+    button {
+      position: absolute;
+      top: 1%;
+      right: 1%;
+      background-color: #d7263d;
+      color: #f7f7f2;
+      font-size: 3vh;
+      mat-icon {
+        height: 80%;
+        width: 80%;
+        font-size: 5vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+  app-tablapuntaje{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2000;
+  }
+}
+
+mat-grid-tile {
+  background: transparent;
+}
+
+.grillaBotones {
+  width: 100%;
+  height: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  padding-bottom: 1%;
+
+  mat-grid-list {
+    width: 800px;
+    height: auto; /* Deja que la altura se ajuste automáticamente al contenido */
+    max-height: 100%;
+  }
+}
+
+.btnLetra:enabled {
+  background-color: #d7263d;
+  width: 100%;
+  height: 100%;
+  border-radius: 20%;
+  font-size: 3rem;
+  padding: 3%;
+}
+
+.btnLetra:disabled {
+  background-color: #434343;
+  opacity: 70%;
+  width: 100%;
+  height: 100%;
+  border-radius: 20%;
+  font-size: 3rem;
+  padding: 3%;
+}
+
+.ahorcado {
+  height: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  svg {
+    width: 30rem;
+    * {
+      fill: none;
+      stroke: #f7f7f2;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-miterlimit: 10;
+      transition: 0.25s;
+    }
+  }
+}
+
+.palabra {
+  height: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  span {
+    color: #f7f7f2;
+    font-size: 3rem;
+    padding: 1%;
+  }
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  color: #f7f7f2;
+  flex-direction: column;
+  font-size: 6vw;
+  padding-bottom: 8%;
+
+  button {
+    width: 10vw;
+    height: 10vw;
+    background-color: #f7f7f2;
+    font-size: 30%;
+    border-radius: 50%;
+    -webkit-animation: heartbeat 2s ease-in-out 1s infinite both;
+    animation: heartbeat 2s ease-in-out 1s infinite both;
+  }
+}
+
+.derrota {
+  background-color: rgba(214, 37, 37, 0.747);
+  button {
+    color: rgba(214, 37, 37);
+  }
+}
+
+.victoria {
+  background-color: #63a46cce;
+  button {
+    color: #63a46c;
+  }
+}
+
+.inicio {
+  button {
+    color: #434343;
+  }
+}
+
+.palabra-seleccionada {
+  font-size: 3vw;
+}

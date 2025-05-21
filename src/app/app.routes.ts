@@ -6,4 +6,5 @@ export const routes: Routes = [
   { path: 'home', loadComponent: () => import('./components/home/home.component').then(m => m.HomeComponent) },
   { path: 'registro', loadComponent: () => import('./components/registro/registro.component').then(m => m.RegistroComponent) },
   { path: 'quiensoy', loadComponent: () => import('./components/quiensoy/quiensoy.component').then(m => m.QuiensoyComponent) },
+  { path: 'juegos', loadChildren: () => import('./juegos/juegos.module').then(m => m.JuegosModule) },
 ];

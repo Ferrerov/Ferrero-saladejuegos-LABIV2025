@@ -1,0 +1,61 @@
+<div class="container-flex" id="pagina">
+    <div class="fondo"></div>
+    @if (victoria || derrota) {
+        <div class="overlay" [ngClass]="victoria? 'victoria' : 'derrota'">
+            @if (victoria) {
+                <p>Victoria!</p>
+            }
+            @else {
+                <p>Derrota!</p>
+            }
+            <p class="palabra-seleccionada">La palabra era {{palabraSeleccionada.join('')}}</p>
+            <button mat-button (click)="inicializarJuego()">Reiniciar</button>
+        </div>
+    }
+    @else if(!iniciado){
+        <div class="overlay inicio">
+            <button mat-button (click)="inicializarJuego()">Iniciar</button>
+        </div>
+    }
+    <div class="ahorcado container">
+        <svg class="hangman" viewBox="0 0 96 96">
+            @if(cantErrores > 10) {<line class="etapa error10" x1="62" y1="70" x2="56" y2="56"></line>}
+            @if(cantErrores > 9) {<line class="etapa error9" x1="50" y1="70" x2="56" y2="56"></line>}
+            @if(cantErrores > 8) {<line class="etapa error8" x1="68" y1="46" x2="56" y2="40"></line>}
+            @if(cantErrores > 7) {<line class="etapa error7" x1="44" y1="46" x2="56" y2="40"></line>}
+            @if(cantErrores > 6) {<line class="etapa error6" x1="56" y1="40" x2="56" y2="56"></line>}
+            @if(cantErrores > 5) {<circle class="etapa error5" cx="56" cy="34" r="6"></circle>}
+            @if(cantErrores > 4) {<line class="etapa error4" x1="56" y1="16" x2="56" y2="28"></line>}
+            @if(cantErrores > 3) {<line class="etapa error3" x1="24" y1="24" x2="32" y2="16"></line>}
+            @if(cantErrores > 2) {<line class="etapa error3" x1="21" y1="16" x2="60" y2="16"></line>}
+            @if(cantErrores > 1) {<line class="etapa error2" x1="24" y1="80" x2="24" y2="16"></line>}
+            @if(cantErrores > 0) {<line class="etapa error1" x1="16" y1="80" x2="32" y2="80"></line>}
+          </svg>
+    </div>
+    <div class="palabra container" id="campoAdivinanza">
+        @for (letra of palabraOculta; track $index) {
+            <span>{{letra}}</span>
+        }
+    </div>
+    <div class="grillaBotones container">
+        <mat-grid-list cols="21" rowHeight="4vh">
+            @for (letra of letras; track $index) {
+                @if(letra === ' '){
+                    <mat-grid-tile class="esEspacio" [colspan]="1" [rowspan]="2"></mat-grid-tile>
+                }
+                @else{
+                    <mat-grid-tile [colspan]="2" [rowspan]="2">
+                        <button
+                            mat-flat-button
+                            class="btnLetra"
+                            [disabled]="letrasDeshabilitadas[letra]"
+                            (click)="OnClickBotonLetra(letra)"
+                        >
+                            {{ letra }}
+                        </button>
+                    </mat-grid-tile>
+                }
+            }
+        </mat-grid-list>
+    </div>  
+</div>

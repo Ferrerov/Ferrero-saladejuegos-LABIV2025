@@ -1,0 +1,45 @@
+form{
+    width: 500px;
+    margin: auto;
+    padding-top: 10%;
+    text-align: center;
+    justify-content: center;
+}
+
+mat-form-field{
+    width: 300px;
+    padding: 5px;
+}
+.button{
+    width: 300px;
+    margin: auto !important;
+}
+
+#ultimo{
+    padding-bottom: 40px;
+}
+
+#errorFirebase{
+    padding-top: 5px;
+}
+
+p{
+    padding-top: 3px;
+    padding-bottom: 3px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.registro{
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 96vh;
+}
+
+mat-card{
+    height: 70vh;
+}

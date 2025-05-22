@@ -1,44 +1,72 @@
 <div class="container-flex" id="pagina">
-  <div class="container" id="formulario">
-    <mat-card appearance="outlined" id="inicioSesion">
-      <form>
-        <h2>Iniciar Sesion</h2>
-        <mat-form-field appearance="outline">
-          <mat-label>Correo Electronico</mat-label>
-          <input
-            matInput
-            placeholder="Ingrese su correo"
-          />
-          <mat-icon matSuffix>alternate_email</mat-icon>
-        </mat-form-field>
-        <mat-form-field appearance="outline" id="ultimo">
-          <mat-label>Contraseña</mat-label>
-          <input matInput [type]="'text'"/>
-          <button
-            type="button"
-            mat-icon-button
-            matSuffix
-            [attr.aria-label]="'Hide password'"
-          ></button>
-        </mat-form-field>
-        <button class="button" type="submit" mat-stroked-button>
-          Iniciar Sesion
-        </button>
-      </form>
-    </mat-card>
-  </div>
+    <div class="container" id="formulario">
+        <mat-card appearance="outlined" id="inicioSesion">
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <h2>Iniciar Sesion</h2>
+                <mat-form-field appearance="outline">
+                    <mat-label>Correo Electronico</mat-label>
+                    <input matInput placeholder="Ingrese su correo" formControlName="correo">
+                    <mat-icon matSuffix>alternate_email</mat-icon>
+                    @if (form.controls.correo.hasError('email') && !form.controls.correo.hasError('required')) {
+                        <mat-error>Ingrese un correo valido</mat-error>
+                    }
+                    @if (form.controls.correo.hasError('required')) {
+                    <mat-error>El correo es requerido</mat-error>
+                    }
+                </mat-form-field>
+                <mat-form-field appearance="outline" id="ultimo">
+                    <mat-label>Contraseña</mat-label>
+                    <input matInput [type]="hide() ? 'password' : 'text'" formControlName="contrasena"/>
+                    <button
+                        type="button"  
+                        mat-icon-button
+                        matSuffix
+                        (click)="clickEvent($event)"
+                        [attr.aria-label]="'Hide password'"
+                        [attr.aria-pressed]="hide()"
+                    >
+                        <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    @if (form.controls.contrasena.hasError('required')) {
+                    <mat-error>La contraseña es requerida</mat-error>
+                    }
+                </mat-form-field>
+                <button class="button" type="submit" mat-stroked-button [disabled]="form.invalid">Iniciar Sesion</button>
+                @if (errorFirebase !== null) {
+                    <mat-error id="errorFirebase">{{errorFirebase}}</mat-error>
+                }
+                
+            </form>
+        </mat-card>
+    </div>
 
-  <div class="container" id="usuariosPreestablecidos">
+
+
+    <div class="container" id="usuariosPreestablecidos">
     <mat-card appearance="outlined">
-      <mat-card-content>
-        <div class="row">Si aun no tenes cuenta...</div>
-        <div class="row">
-          <a class="button" mat-flat-button type="button" href="/registro"
-            >Registrarse</a
-          >
-        </div>
-        <div class="row justify-content-evenly" id="accesoRapido"></div>
-      </mat-card-content>
+        <mat-card-content>
+            <div class="row">Si aun no tenes cuenta...</div>
+            <div class="row">    <a class="button" mat-flat-button type="button" href="/registro" >Registrarse</a></div>
+            <div class="row">O aun mejor!<br>Ingresa con una cuenta preestablecida...</div>
+            <div class="row justify-content-evenly" id="accesoRapido">
+                <div class="col-4 mb-3">
+                    <button mat-fab extended (click)="setCredentials('enzo@gmail.com', 'WwK*Qw96n4bh39pY')" id="Enzo"> 
+                        <mat-icon>account_circle</mat-icon>
+                        Enzo
+                    </button>  
+                </div>
+                <div class="col-4 mb-3">
+                    <button mat-fab extended (click)="setCredentials('angel@gmail.com', 'ZrZdC3qrkX%9xGd6')" id="Angel"> 
+                        <mat-icon>account_circle</mat-icon>
+                        Angel
+                    </button>    </div>
+                <div class="col-4 mb-3">
+                    <button mat-fab extended color="tertiary" (click)="setCredentials('ramon@gmail.com', 'Vdi%HrHREA5kx5M2')" id="Ramon"> 
+                        <mat-icon>account_circle</mat-icon>
+                        Ramon
+                    </button>    </div>
+            </div>
+        </mat-card-content>
     </mat-card>
-  </div>
+    </div>
 </div>

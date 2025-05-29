@@ -1,1 +1,46 @@
-<p>juegodelquince works!</p>
+<div class="pagina">
+    <div class="juego">
+        <div class="container" (click)="onClick($event)">
+            <div id="00" class="00 ficha uno">1</div>
+            <div id="01" class="01 ficha dos">2</div>
+            <div id="02" class="02 ficha tres">3</div>
+            <div id="10" class="10 ficha cuatro">4</div>
+            <div id="11" class="11 ficha cinco">5</div>
+            <div id="12" class="12 ficha seis">6</div>
+            <div id="20" class="20 ficha siete">7</div>
+            <div id="21" class="21 ficha ocho">8</div>
+        </div>
+        <!-- <button (click)="mezclar()">Mezclar</button> -->
+    </div>
+    <div class="interfaz">
+        <div  [ngClass]="comenzo? 'comenzo' : 'no-comenzo'">
+            <div class="boton">
+                <button class="comenzar" mat-fab extended (click)="mezclar();iniciarCronometro()">
+                    <mat-icon fontSet="material-symbols-outlined">playing_cards</mat-icon>
+                    <span>{{comenzo? 'Mezclar' : 'Comenzar'}}</span>
+                </button>
+            </div>
+            @if(comenzo)
+            {
+                <div class="puntaje">
+                    <div class="movimientos">
+                        <span>Movimientos: {{movimientos}}</span>
+                    </div>
+                    <div class="tiempo">
+                        @if (timer$) {
+                            <span>Tiempo: {{ timer$ | async }}</span><br>
+                        }
+                        @else {
+                            <span>Tiempo: 00:00</span><br>
+                        }
+                    </div>
+                    @if(ganador){
+                        <div class="mensaje">
+                            <span>Ganaste!</span>
+                        </div>
+                    }
+                </div>   
+            }
+        </div>
+    </div>
+</div>

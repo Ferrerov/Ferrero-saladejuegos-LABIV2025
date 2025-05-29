@@ -7,11 +7,8 @@ import {MatCardModule} from '@angular/material/card';
 import { Router } from '@angular/router';
 import { FormBuilder, Validators, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import { createClient } from '@supabase/supabase-js'
-import { environment } from '../../../environments/environment';
 import { from } from 'rxjs';
 
-const supabase = createClient(environment.apiUrl, environment.publicAnonKey)
 
 @Component({
   selector: 'app-login',
@@ -25,7 +22,7 @@ export class LoginComponent {
   router = inject(Router);
   authService = inject(AuthService);
   hide = signal(true);
-  errorFirebase : string | null = null;
+  errorSupabase : string | null = null;
 
   form = this.formbuilder.nonNullable.group({
     correo: ['', [Validators.required, Validators.email]],
@@ -37,39 +34,17 @@ export class LoginComponent {
     event.stopPropagation();
   }
 
-  onSubmit() : void{
-    const rawForm = this.form.getRawValue();
-    /**this.authService.login(rawForm.correo ,rawForm.contrasena)
-    .subscribe({
-      next: () => {
-        this.router.navigateByUrl('/home');},
-      error: (err) => {
-        console.log(err.code);
-        this.errorFirebase = 'Las credenciales no coinciden';
-      }
-    });**/
-    this.login(rawForm.correo ,rawForm.contrasena).subscribe({
-      next: () => {
-        this.router.navigateByUrl('/home');},
-      error: (err) => {
-        console.log(err.code);
-        this.errorFirebase = 'Las credenciales no coinciden';
-      }
-    });
-  }
-
-login(correo: string, contrasena: string) {
-  const promise = supabase.auth.signInWithPassword({
-    email: correo,
-    password: contrasena,
-  });
-
-  return from(promise.then((response) => {
-    if (response.error) {
-      throw response.error; // Esto es clave
+  onSubmit(): void {
+  const rawForm = this.form.getRawValue();
+  this.authService.login(rawForm.correo, rawForm.contrasena).subscribe(result => {
+    console.log(result.data);
+    console.log(result.error);
+    if (result.error) {
+      this.errorSupabase = 'Las credenciales no son validas';
+    } else {
+      this.router.navigateByUrl('/home');
     }
-    return response;
-  }));
+  })
 }
 
   setCredentials(correo: string, contrasena: string) {

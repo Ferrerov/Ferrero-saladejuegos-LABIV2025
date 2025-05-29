@@ -1,0 +1,123 @@
+.chatCard{
+    position: fixed;
+    right: 0.5rem;
+    bottom: 0.5rem;
+    padding: 0px;
+    border-radius: 5px;
+    width: 20vw;
+    height: 40vh;
+    transition: height 0.6s ease;
+
+    &.minimizado {
+        height: 5vh;
+    }
+    button{
+        background-color: transparent;
+        border: 0;
+        width: 100%;
+    }
+    
+}
+
+mat-card-header{
+    background-color: #D7263D;
+    border-radius: 5px;
+    color: #F2EFEA;
+    justify-content: center;
+    height: 10vh;
+    padding: 5px;
+}
+
+mat-form-field{
+    width: 100%;
+    padding: 0.25rem;
+    background-color: #F2EFEA;
+}
+
+mat-card-content{
+    padding: 0.5rem;
+    background-color: #F2EFEA;
+    height: 80vh;
+    padding-bottom: 0;
+    padding-top: 0.1rem;
+}
+
+mat-card-footer{
+    align-items: end;
+}
+
+mat-icon:active{
+    transform: scale(0.9);
+}
+
+.enviado{
+    background-color: #D7263D;
+    color: #F7F7F2;
+    display: block;
+    float: right;
+    min-width: 80.1%;
+    max-width: 85%;
+    border-radius: 10px;
+    padding: 2px;
+    text-align: left;
+    padding-left: 2%;
+    padding-right: 2%;
+    margin-bottom: 2px;
+}
+
+.recibido{
+    background-color: #434343;
+    color: #F7F7F2;
+    display: block;
+    float: left;
+    min-width: 80.1%;
+    max-width: 85%;
+    border-radius: 10px;
+    padding: 2px;
+    text-align: left;
+    padding-left: 2%;
+    padding-right: 2%;
+    margin-bottom: 2px;
+}
+
+.usuario{
+    display: flex;
+    align-items: center;
+    padding-left: 1%;
+    font-size: 10px;
+    height: 10px;
+    text-decoration: underline;
+}
+
+.hora{
+    display: flex;
+    align-items: center;
+    padding-right: 2%;
+    font-size: 8px;
+    height: 8px;
+    justify-content: end;
+}
+
+.mensajesContainer{
+    height: 26.5vh;
+    overflow-y: auto;
+    padding-bottom: 0;
+    display: block;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.mensajesContainer::-webkit-scrollbar{
+    display: none;
+}
+
+.iconChat{
+    color: white;
+    justify-content: end;
+    align-items: end;
+}
+
+.botonChat{
+    float: right;
+    width: 26px;
+}

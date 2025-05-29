@@ -32,8 +32,8 @@
                     }
                 </mat-form-field>
                 <button class="button" type="submit" mat-stroked-button [disabled]="form.invalid">Iniciar Sesion</button>
-                @if (errorFirebase !== null) {
-                    <mat-error id="errorFirebase">{{errorFirebase}}</mat-error>
+                @if (errorSupabase !== null) {
+                    <mat-error id="errorSupabase">{{errorSupabase}}</mat-error>
                 }
                 
             </form>
@@ -50,18 +50,18 @@
             <div class="row">O aun mejor!<br>Ingresa con una cuenta preestablecida...</div>
             <div class="row justify-content-evenly" id="accesoRapido">
                 <div class="col-4 mb-3">
-                    <button mat-fab extended (click)="setCredentials('enzo@gmail.com', 'WwK*Qw96n4bh39pY')" id="Enzo"> 
+                    <button mat-fab extended (click)="setCredentials('joukefribreupi-4252@yopmail.com', 'WwK*Qw96n4bh39pY')" id="Enzo"> 
                         <mat-icon>account_circle</mat-icon>
                         Enzo
                     </button>  
                 </div>
                 <div class="col-4 mb-3">
-                    <button mat-fab extended (click)="setCredentials('angel@gmail.com', 'ZrZdC3qrkX%9xGd6')" id="Angel"> 
+                    <button mat-fab extended (click)="setCredentials('humouyifoipre-7575@yopmail.com', 'ZrZdC3qrkX%9xGd6')" id="Angel"> 
                         <mat-icon>account_circle</mat-icon>
                         Angel
                     </button>    </div>
                 <div class="col-4 mb-3">
-                    <button mat-fab extended color="tertiary" (click)="setCredentials('ramon@gmail.com', 'Vdi%HrHREA5kx5M2')" id="Ramon"> 
+                    <button mat-fab extended color="tertiary" (click)="setCredentials('geibreipraneddoi-2968@yopmail.com', 'Vdi%HrHREA5kx5M2')" id="Ramon"> 
                         <mat-icon>account_circle</mat-icon>
                         Ramon
                     </button>    </div>

@@ -40,7 +40,7 @@
             <mat-error>La contraseña es requerida</mat-error>
             }
         </mat-form-field>
-        <button mat-flat-button type="submit" class="button" [disabled]="form.invalid">Registrarse</button>
+        <button mat-flat-button type="submit" class="button">Registrarse</button>
         @if (errorSupabase !== null) {
             <mat-error id="errorSupabase">{{errorSupabase}}</mat-error>
         }

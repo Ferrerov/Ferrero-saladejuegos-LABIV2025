@@ -1,5 +1,5 @@
 export interface UsuarioInterface {
-    correo:string;
-    usuario:string;
+    email:string;
+    username:string;
     uid:string;
 }

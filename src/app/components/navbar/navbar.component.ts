@@ -1,20 +1,19 @@
-import { Component } from '@angular/core';
-import { createClient } from '@supabase/supabase-js';
-import { from } from 'rxjs';
-import { environment } from '../../../environments/environment';
-
-const supabase = createClient(environment.apiUrl, environment.publicAnonKey)
-
+import { Component, inject } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [],
+  imports: [MatIcon],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
-  logout() {
-    return from(supabase.auth.signOut());
+  authService = inject(AuthService);
+  currentUser = this.authService.currentUser;
+
+  logout(): void {
+    this.authService.logout();
   }
 }

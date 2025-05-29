@@ -4,6 +4,9 @@
     <router-outlet></router-outlet>      
   </div>
 </div>
+@if (authService.currentUser()) {
+  <app-chat></app-chat>
+}
 
 
 

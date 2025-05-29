@@ -1,9 +1,4 @@
-import {
-  Component,
-  signal,
-  ChangeDetectionStrategy,
-  inject,
-} from '@angular/core';
+import { Component, signal, inject } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -15,7 +10,6 @@ import {
   ReactiveFormsModule,
   FormsModule,
 } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../services/auth.service';
 import { MatCard } from '@angular/material/card';
 
@@ -33,7 +27,6 @@ import { MatCard } from '@angular/material/card';
   ],
   templateUrl: './registro.component.html',
   styleUrl: './registro.component.scss',
-  //changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegistroComponent {
   router = inject(Router);
@@ -66,23 +59,28 @@ export class RegistroComponent {
   }
 
   onSubmit(): void {
-  const rawForm = this.form.getRawValue();
-  this.authService
-    .register(rawForm.correo, rawForm.contrasena, rawForm.usuario)
-    .subscribe({
-      next: () => this.router.navigateByUrl('/home'),
-      error: (err) => {
-        console.log(err);
-      if (err.code === 'correo-existente') {
-          this.errorSupabase = 'El correo ingresado ya esta registrado';
-        } else if (
-          err.message.toLowerCase().includes('invalid')
-        ) {
-          this.errorSupabase = 'El correo ingresado no es valido';
+    const rawForm = this.form.getRawValue();
+    this.authService
+      .register(rawForm.correo, rawForm.usuario, rawForm.contrasena)
+      .subscribe((result) => {
+        console.log(result.data);
+        console.log(result.error);
+        console.log(result.error?.code);
+        if (result.error) {
+          switch (result.error.code) {
+            case 'user_already_exists':
+              this.errorSupabase = 'El correo ingresado ya esta registrado';
+              break;
+            case 'email_address_invalid':
+              this.errorSupabase = 'El correo ingresado no es valido';
+              break;
+            default:
+              'Error al registrarse';
+          }
+          this.errorSupabase = result.error.message;
         } else {
-          this.errorSupabase = 'Error al registrarse';
+          this.router.navigateByUrl('/home');
         }
-      },
-    });
-}
+      });
+  }
 }

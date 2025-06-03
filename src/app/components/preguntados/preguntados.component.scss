@@ -114,7 +114,7 @@
       height: 80%;
       svg {
         height: 100%;
-        stroke: #d7263d;
+        stroke: #023e7d;
         -webkit-animation: heartbeat 1.5s ease-in-out infinite both;
         animation: heartbeat 1.5s ease-in-out infinite both;
       }
@@ -126,8 +126,8 @@
       align-items: center;
       width: 100%;
       button {
-        background-color: #f7f7f2;
-        color: #434343;
+        background-color: #33415c;
+        color: #979dac;
         height: 100%;
         width: 60%;
         border-radius: 5vh;
@@ -149,7 +149,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        border-color: #d7263d;
+        border-color: #023e7d;
         border-width: 10px;
         border-style: solid;
         margin: 0.5%;
@@ -265,10 +265,84 @@
       }
     }
   }
-  app-tablapuntaje{
+  app-tablapuntaje {
     position: absolute;
     width: 100%;
     height: 100%;
     z-index: 2000;
+  }
+
+    .puntaje-historico {
+    //height: 100%;
+    //width: 100%;
+    z-index: 1002;
+    position: absolute;
+    top: 1%;
+    right: 1%;
+    width: 15%;
+    .boton-puntaje {
+      position: absolute;
+      top: 1%;
+      right: 1%;
+      background-color: #d7263d;
+      color: #f7f7f2;
+      font-size: 3vh;
+      .icono-puntaje {
+        height: 80%;
+        width: 80%;
+        font-size: 5vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+
+
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  color: #f7f7f2;
+  flex-direction: column;
+  font-size: 6vw;
+  padding-bottom: 8%;
+
+  button {
+    width: 10vw;
+    height: 10vw;
+    background-color: #f7f7f2;
+    font-size: 30%;
+    border-radius: 50%;
+    -webkit-animation: heartbeat 2s ease-in-out 1s infinite both;
+    animation: heartbeat 2s ease-in-out 1s infinite both;
+  }
+
+  h1 {
+    font-size: 10vh;
+  }
+  p {
+    font-size: 5vh;
+  }
+}
+
+.inicio {
+  button {
+    color: rgb(0, 9, 90);
+  }
+}
+
+.derrota {
+  background-color: rgba(214, 37, 37, 0.747);
+  button {
+    color: rgba(214, 37, 37);
   }
 }

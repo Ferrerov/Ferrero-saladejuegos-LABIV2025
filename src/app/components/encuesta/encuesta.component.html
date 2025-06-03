@@ -1,0 +1,75 @@
+<div class="pagina">
+    <div class="titulo">
+        <span>ENCUESTA</span>
+    </div>
+    <div class="encuesta">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <mat-form-field appearance="outline">
+                <mat-label>Nombre</mat-label>
+                <input matInput placeholder="Ingrese su nombre" formControlName="nombre">
+                <mat-icon matSuffix>person</mat-icon>
+                @if (form.controls.nombre.hasError('required')) {
+                <mat-error>El nombre es requerido</mat-error>
+                }
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Apellido</mat-label>
+                <input matInput placeholder="Ingrese su nombre" formControlName="apellido">
+                <mat-icon matSuffix>person</mat-icon>
+                @if (form.controls.apellido.hasError('required')) {
+                <mat-error>El apellido es requerido</mat-error>
+                }
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Edad</mat-label>
+                <input matInput type="number" class="example-right-align" placeholder="Ingrese su edad" min="18" max="99"  formControlName="edad"/>
+                @if (form.controls.edad.hasError('min')) {
+                    <mat-error>La edad minima es 18</mat-error>
+                }
+                @if (form.controls.edad.hasError('max')) {
+                    <mat-error>La edad maxima es 99</mat-error>
+                }
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Numero de telefono</mat-label>
+                <input matInput type="text" class="example-right-align" placeholder="Ingrese su edad" minlength="7" maxlength="10" formControlName="telefono" pattern="[0-9]*"/>
+                <mat-icon matSuffix>phone</mat-icon>
+                @if (form.controls.telefono.hasError('minlength')) {
+                    <mat-error>Son minimo 7 numeros</mat-error>
+                }
+                @if (form.controls.telefono.hasError('maxlength')) {
+                    <mat-error>Son maximo 10 numeros</mat-error>
+                }
+                @if (form.controls.telefono.hasError('required')) {
+                    <mat-error>El telefono es requerido</mat-error>
+                    }
+            </mat-form-field>
+            <div class="pregunta pregunta-uno">
+                <span>Que le parecieron los juegos?</span><br>
+                <mat-radio-group formControlName="calidadJuegos">
+                    <mat-radio-button class="example-margin" value="malos">Malos</mat-radio-button>
+                    <mat-radio-button class="example-margin" value="regulares">Regulares</mat-radio-button>
+                    <mat-radio-button class="example-margin" value="buenos">Buenos</mat-radio-button>
+                </mat-radio-group>
+            </div>
+            <div class="pregunta pregunta-dos">
+                <span>Que juegos jugo mas de una vez? Puede seleccionar varios.</span><br>
+                <mat-checkbox class="example-margin" (change)="toggleCheckbox('ahorcado', $event)">Ahorcado</mat-checkbox>
+                <mat-checkbox class="example-margin" (change)="toggleCheckbox('mayormenor', $event)">Mayor o Menor</mat-checkbox>
+                <mat-checkbox class="example-margin" (change)="toggleCheckbox('preguntados', $event)">Preguntados</mat-checkbox>
+                <mat-checkbox class="example-margin" (change)="toggleCheckbox('juegodel15', $event)">Juego del 15</mat-checkbox>
+            </div>
+            <div class="pregunta pregunta-tres">
+                <span>Deje alguna sugerencia para un nuevo juego.</span><br>
+                <mat-form-field  appearance="outline">
+                    <mat-label>Su sugerencia</mat-label>
+                    <textarea matInput placeholder="Ej. Me gustaria jugar a..." formControlName="sugerencia"></textarea>
+                  </mat-form-field>
+            </div>
+            <button mat-flat-button type="submit" class="button" [disabled]="form.invalid">Enviar encuesta</button> 
+            @if (errorFirebase !== null) {
+                <mat-error id="errorFirebase">{{errorFirebase}}</mat-error>
+            }
+            </form>
+    </div>
+</div>

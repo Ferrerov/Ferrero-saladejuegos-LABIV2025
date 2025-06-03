@@ -1,35 +1,54 @@
-<mat-card [ngClass]="{'minimizado': chatMinimizado}" class="container chatCard" appearance="outlined">
-    <mat-card-header>
-      <mat-card-title>Chat</mat-card-title>
-        <div class="botonChat">
-            <button mat-icon-button (click)="minimizarChat()">
-                <mat-icon class="iconChat">{{ chatMinimizado ? 'expand_more' : 'expand_less' }}</mat-icon>
-            </button>
+<mat-card
+  [ngClass]="{ minimizado: chatMinimizado }"
+  class="container chatCard"
+  appearance="outlined"
+>
+  <mat-card-header>
+    <mat-card-title>Chat</mat-card-title>
+    <div class="botonChat">
+      <button mat-icon-button (click)="minimizarChat()">
+        <mat-icon class="iconChat">{{
+          chatMinimizado ? "expand_more" : "expand_less"
+        }}</mat-icon>
+      </button>
+    </div>
+  </mat-card-header>
+
+  @if (!chatMinimizado) {
+  <mat-card-content>
+    <div class="mensajesContainer" #mensajesContainer>
+      @for (mensaje of mensajes; track $index) {
+      <div
+        [ngClass]="
+          authService.currentUser()?.uid == mensaje.uid ? 'enviado' : 'recibido'
+        "
+      >
+        @if (authService.currentUser()?.uid !== mensaje.uid) {
+        <div class="usuario">{{ mensaje.usuario }}</div>
+        }
+        <div class="mensaje">{{ mensaje.mensaje }}</div>
+        <div class="hora">
+          {{ mensaje.fecha_envio | date : "dd/MM/yy HH:mm" }}
         </div>
-    </mat-card-header>
-    @if(!chatMinimizado){
-        <mat-card-content>
-            <div class="mensajesContainer" #mensajesContainer>
-                @for (mensaje of supabaseDbService.mensajesSig(); track $index) {
-                    <div [ngClass]="(authService.currentUser()?.uid == mensaje.uid)? 'enviado' : 'recibido'">
-                        @if(authService.currentUser()?.uid !== mensaje.uid){
-                            <div class="usuario">{{mensaje.usuario}}</div>
-                        }
-                        <div class="mensaje">{{mensaje.mensaje}}</div>
-                        <div class="hora">{{mensaje.fecha_envio | date: 'dd/MM/yy HH:mm'}}</div>
-                    </div>
-                }
-            </div>
-        </mat-card-content>
-        <mat-card-footer class="mat-form-field">
-            <form (ngSubmit)="EnviarMensaje()">
-                <mat-form-field subscriptSizing="dynamic" appearance="outline">
-                    <input matInput placeholder="Ingrese su mensaje" name="mensaje" [(ngModel)]="nuevoMensaje">
-                    <button mat-button matSuffix type="submit">
-                        <mat-icon>send</mat-icon>
-                    </button>
-                </mat-form-field>
-            </form>
-        </mat-card-footer>
-    }
-  </mat-card>
+      </div>
+      }
+    </div>
+  </mat-card-content>
+
+  <mat-card-footer class="mat-form-field">
+    <form (ngSubmit)="EnviarMensaje()">
+      <mat-form-field subscriptSizing="dynamic" appearance="outline">
+        <input
+          matInput
+          placeholder="Ingrese su mensaje"
+          name="mensaje"
+          [(ngModel)]="nuevoMensaje"
+        />
+        <button mat-button matSuffix type="submit">
+          <mat-icon>send</mat-icon>
+        </button>
+      </mat-form-field>
+    </form>
+  </mat-card-footer>
+  }
+</mat-card>

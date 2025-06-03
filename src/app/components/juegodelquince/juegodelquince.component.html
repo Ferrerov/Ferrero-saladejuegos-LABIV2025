@@ -24,14 +24,16 @@
             {
                 <div class="puntaje">
                     <div class="movimientos">
-                        <span>Movimientos: {{movimientos}}</span>
+                        <span>Movimientos</span>
+                        <span>{{movimientos}}</span>
                     </div>
                     <div class="tiempo">
+                        <span>Tiempo</span>
                         @if (timer$) {
-                            <span>Tiempo: {{ timer$ | async }}</span><br>
+                            <span>{{ timer$ | async }}</span>
                         }
                         @else {
-                            <span>Tiempo: 00:00</span><br>
+                            <span>00:00</span><br>
                         }
                     </div>
                     @if(ganador){
@@ -43,4 +45,14 @@
             }
         </div>
     </div>
+        <div class="puntaje-historico">
+        <button mat-fab extended class="boton-puntaje" (click)="verVentana(true)">
+        <mat-icon class="icono-puntaje">menu</mat-icon>
+        Puntajes
+        </button>
+      </div>
+      @if(verPuntajes)
+      {
+        <app-tablapuntaje (ver)="verVentana($event)" [puntajeRequerido]="'juegodelocho'" [ordenPuntos]="'asc'" [tipoPuntaje]="'movimientos'"></app-tablapuntaje>
+      }
 </div>

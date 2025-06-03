@@ -1,31 +1,71 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {MatGridListModule} from '@angular/material/grid-list';
+import { MatGridListModule } from '@angular/material/grid-list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
+import { TablapuntajeComponent } from '../tablapuntaje/tablapuntaje.component';
+import { SupabaseDbService } from '../../services/supabase-db-service.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-ahorcado',
   standalone: true,
-  imports: [MatGridListModule, MatButtonModule, CommonModule],
+  imports: [
+    MatGridListModule,
+    MatButtonModule,
+    CommonModule,
+    MatIcon,
+    TablapuntajeComponent,
+  ],
   templateUrl: './ahorcado.component.html',
-  styleUrl: './ahorcado.component.scss'
+  styleUrl: './ahorcado.component.scss',
 })
 export class AhorcadoComponent {
-
-  letras: string[] = ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P',' ',' ', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Ñ',' ',' ', 'Z', 'X', 'C', 'V', 'B', 'N', 'M'];
+  letras: string[] = [
+    'Q',
+    'W',
+    'E',
+    'R',
+    'T',
+    'Y',
+    'U',
+    'I',
+    'O',
+    'P',
+    ' ',
+    ' ',
+    'A',
+    'S',
+    'D',
+    'F',
+    'G',
+    'H',
+    'J',
+    'K',
+    'L',
+    'Ñ',
+    ' ',
+    ' ',
+    'Z',
+    'X',
+    'C',
+    'V',
+    'B',
+    'N',
+    'M',
+  ];
   letrasDeshabilitadas: { [key: string]: boolean } = {};
   cantErroresMaximos: number = 11;
   cantErrores: number = 0;
   cantLetrasUnicas: number = 0;
   cantAciertos: number = 0;
   private palabras: string[][] = [
-    ["T", "A", "L", "A", "D", "R", "O"],
-    ["M", "I", "L", "L", "O", "N", "A", "R", "I", "O"],
-    ["C", "U", "E", "R", "V", "O"],
-    ["C", "A", "L", "A", "M", "A", "R"],
-    ["A", "C", "A", "D", "E", "M", "I", "A"],
-    ["R", "O", "J", "O"]
+    ['T', 'A', 'L', 'A', 'D', 'R', 'O'],
+    ['M', 'I', 'L', 'L', 'O', 'N', 'A', 'R', 'I', 'O'],
+    ['C', 'U', 'E', 'R', 'V', 'O'],
+    ['C', 'A', 'L', 'A', 'M', 'A', 'R'],
+    ['A', 'C', 'A', 'D', 'E', 'M', 'I', 'A'],
+    ['R', 'O', 'J', 'O'],
   ];
   public palabraSeleccionada: string[] = [];
   public palabraOculta: string[] = [];
@@ -35,21 +75,23 @@ export class AhorcadoComponent {
   derrota: boolean = false;
   private fechaInicio: Date | null = null;
   verPuntajes: boolean = false;
+  supabase = inject(SupabaseDbService);
+  authService = inject(AuthService);
 
   public inicializarJuego(): void {
-    console.log("inicializar");
+    console.log('inicializar');
     this.iniciado = true;
     const indiceAleatorio = Math.floor(Math.random() * this.palabras.length);
     this.palabraSeleccionada = this.palabras[indiceAleatorio];
-    this.palabraOculta = Array(this.palabraSeleccionada.length).fill("_");
+    this.palabraOculta = Array(this.palabraSeleccionada.length).fill('_');
     this.cantLetrasUnicas = new Set(this.palabraSeleccionada).size;
     this.cantErrores = 0;
     this.cantAciertos = 0;
     this.letrasDeshabilitadas = {};
     this.victoria = false;
     this.derrota = false;
-    console.log('Palabra seleccionada: ' , this.palabraSeleccionada);
-    console.log('Cant letras unicas: ' , this.cantLetrasUnicas);
+    console.log('Palabra seleccionada: ', this.palabraSeleccionada);
+    console.log('Cant letras unicas: ', this.cantLetrasUnicas);
     this.fechaInicio = new Date();
   }
 
@@ -66,20 +108,18 @@ export class AhorcadoComponent {
     if (acierto === false) {
       this.cantErrores++;
       console.log(this.cantErrores);
-    }
-    else{
+    } else {
       this.cantAciertos++;
     }
     this.verificarEstadoJuego();
   }
 
   private verificarEstadoJuego(): void {
-    if(this.cantAciertos === this.cantLetrasUnicas)
-    {
+    if (this.cantAciertos === this.cantLetrasUnicas) {
       this.victoria = true;
+      this.guardarResultados();
       this.VerificarTiempoJuego();
-    }
-    else if(this.cantErrores === this.cantErroresMaximos){
+    } else if (this.cantErrores === this.cantErroresMaximos) {
       this.derrota = true;
       this.VerificarTiempoJuego();
     }
@@ -90,8 +130,8 @@ export class AhorcadoComponent {
     this.comprobarLetra(letra);
   }
 
-  VerificarTiempoJuego(): string{
-    const fechaFin:Date = new Date();
+  VerificarTiempoJuego(): string {
+    const fechaFin: Date = new Date();
     const tiempoTranscurrido = fechaFin.getTime() - this.fechaInicio!.getTime();
     const minutos = Math.floor(tiempoTranscurrido / 60000);
     const segundos = Math.floor((tiempoTranscurrido % 60000) / 1000);
@@ -99,9 +139,26 @@ export class AhorcadoComponent {
     const minutosStr = minutos.toString().padStart(2, '0');
     const segundosStr = segundos.toString().padStart(2, '0');
     const milisegundosStr = milisegundos.toString().padStart(3, '0');
-    
+
     console.log(`${minutosStr}:${segundosStr}:${milisegundosStr}`);
     return `${minutosStr}:${segundosStr}:${milisegundosStr}`;
   }
 
+  guardarResultados() {
+    this.supabase
+      .addResultado(
+        this.authService.currentUser()!.username,
+        'ahorcado',
+        this.cantErrores,
+        'asc'
+      )
+      .subscribe({
+        next: (res) => console.log('Resultado:', res),
+        error: (err) => console.error('Error:', err),
+      });
+  }
+
+  verVentana(ver: boolean) {
+    this.verPuntajes = ver;
+  }
 }

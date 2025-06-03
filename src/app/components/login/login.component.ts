@@ -7,7 +7,8 @@ import {MatCardModule} from '@angular/material/card';
 import { Router } from '@angular/router';
 import { FormBuilder, Validators, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import { from } from 'rxjs';
+import { SupabaseDbService } from '../../services/supabase-db-service.service';
+
 
 
 @Component({
@@ -23,6 +24,7 @@ export class LoginComponent {
   authService = inject(AuthService);
   hide = signal(true);
   errorSupabase : string | null = null;
+  supabase = inject(SupabaseDbService);
 
   form = this.formbuilder.nonNullable.group({
     correo: ['', [Validators.required, Validators.email]],
@@ -42,6 +44,7 @@ export class LoginComponent {
     if (result.error) {
       this.errorSupabase = 'Las credenciales no son validas';
     } else {
+      this.guardarLogSesion();
       this.router.navigateByUrl('/home');
     }
   })
@@ -51,4 +54,15 @@ export class LoginComponent {
     this.form.setValue({ correo, contrasena});
   }
 
+  guardarLogSesion(){
+    this.supabase
+      .addLog(
+        this.authService.currentUser()!.email,
+        new Date(Date.now())
+      )
+      .subscribe({
+        next: (res) => console.log('Resultado:', res),
+        error: (err) => console.error('Error:', err),
+      });
+  }
 }

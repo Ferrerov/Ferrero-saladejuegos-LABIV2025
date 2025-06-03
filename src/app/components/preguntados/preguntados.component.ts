@@ -5,11 +5,13 @@ import { MatButton, MatFabButton } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 import { MatIcon } from '@angular/material/icon';
+import { TablapuntajeComponent } from '../tablapuntaje/tablapuntaje.component';
+import { SupabaseDbService } from '../../services/supabase-db-service.service';
 
 @Component({
   selector: 'app-preguntados',
   standalone: true,
-  imports: [MatButton, CommonModule],
+  imports: [MatButton, CommonModule, MatIcon, TablapuntajeComponent, MatFabButton],
   templateUrl: './preguntados.component.html',
   styleUrl: './preguntados.component.scss',
 })
@@ -63,8 +65,9 @@ export class PreguntadosComponent implements OnInit {
   nuevasOpciones: string[] = [];
   nuevaRespuestaCorrecta: string = '';
   authService = inject(AuthService);
-  juego:string = 'preguntados';
+  juego: string = 'preguntados';
   verPuntajes: boolean = false;
+  supabase = inject(SupabaseDbService);
 
   ngOnInit(): void {}
 
@@ -215,21 +218,28 @@ export class PreguntadosComponent implements OnInit {
       this.opciones = [...this.nuevasOpciones];
       this.imagen = this.nuevaImagen;
 
-      if(this.vidas == 0)
-      {
-        //this.guardarResultados();
+      if (this.vidas == 0) {
+        this.guardarResultados();
         this.comenzo = false;
-      }
-      else{
+      } else {
         this.seleccionarEquipo();
       }
     }, 2500);
   }
 
-  /*guardarResultados(){
-    this.firestore.addResultado(this.authService.currentUserSig()!.usuario, 'preguntados', this.puntos, 'desc');
-  }*/
-
+  guardarResultados() {
+    this.supabase
+      .addResultado(
+        this.authService.currentUser()!.username,
+        'preguntados',
+        this.puntos,
+        'desc'
+      )
+      .subscribe({
+        next: (res) => console.log('Resultado:', res),
+        error: (err) => console.error('Error:', err),
+      });
+  }
   verVentana(ver: boolean) {
     this.verPuntajes = ver;
   }

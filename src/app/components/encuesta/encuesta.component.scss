@@ -1,0 +1,44 @@
+.pagina{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    .titulo{
+        width: 100%;
+        height: 5%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #F7F7F2;
+        font-size: 5vh;
+        font-variant: small-caps;
+    }
+    .encuesta{
+        background-color: #F7F7F2;
+        border-radius: 1vh;
+        border-width: 1vh;
+        border-style: solid;
+        border-color: #D7263D;
+        width: 70%;
+        height: 80%;
+        padding: 1%;
+        margin: 1%;
+        form{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            mat-form-field{
+                width: 25%;
+                margin: .1%;
+            }
+            .pregunta-tres{
+                mat-form-field{
+                    width: 100%;
+                }
+            }
+        }
+    }
+}

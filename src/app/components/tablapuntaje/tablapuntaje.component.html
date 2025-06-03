@@ -1,0 +1,40 @@
+<div class="pagina">
+    <div class="cerrar">
+        <button mat-fab class="boton-cerrar" (click)="cerrarVentana()">
+            X
+        </button>
+    </div>
+    <div class="contenido">
+        <div class="tabla">
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+                @for (column of displayedColumns; track column) {
+                  <ng-container [matColumnDef]="column">
+                    @if(column === 'puntaje'){
+                        <th mat-header-cell *matHeaderCellDef> {{tipoPuntaje}} </th>
+                    }@else if (column === 'fecha_jugado'){
+                        <th mat-header-cell *matHeaderCellDef> Fecha de juego </th>
+                    }
+                    @else {
+                        <th mat-header-cell *matHeaderCellDef> {{column}} </th>
+                    }
+                    @if(column === 'posicion' )
+                    {
+                        <td mat-cell *matCellDef="let index = index"> {{index+1}} </td>
+
+                    }@else{
+                        @if(column === 'fecha_jugado')
+                        {
+                            <td mat-cell *matCellDef="let element"> {{element[column] | date: 'dd/MM/yyyy HH:mm:ss'}} </td>
+                        }@else {
+                        <td mat-cell *matCellDef="let element"> {{element[column]}}
+                        }
+                    }
+                  </ng-container>
+                }
+              
+                <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+                <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+              </table>
+        </div>
+    </div>
+</div>

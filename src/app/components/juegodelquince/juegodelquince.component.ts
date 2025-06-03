@@ -5,11 +5,13 @@ import { Observable, Subject, timer, takeUntil, map } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
+import { TablapuntajeComponent } from '../tablapuntaje/tablapuntaje.component';
+import { SupabaseDbService } from '../../services/supabase-db-service.service';
 
 @Component({
   selector: 'app-juegodelquince',
   standalone: true,
-  imports: [MatFabButton, MatIcon, AsyncPipe, CommonModule],
+  imports: [MatFabButton, MatIcon, AsyncPipe, CommonModule, TablapuntajeComponent],
   templateUrl: './juegodelquince.component.html',
   styleUrls: ['./juegodelquince.component.scss']
 })
@@ -27,6 +29,7 @@ export class JuegodelquinceComponent {
   ganador:boolean = false;
   authService = inject(AuthService);
   verPuntajes:boolean = false;
+  supabase = inject(SupabaseDbService);
   
 
   iniciarCronometro() {
@@ -160,7 +163,7 @@ export class JuegodelquinceComponent {
       let ganado = this.validarOrden();
 
       if (ganado) {
-        //this.guardarResultados();
+        this.guardarResultados();
         this.ganador = ganado;
         console.log('¡Ganaste!');
         this.frenarCronometro();
@@ -206,5 +209,17 @@ export class JuegodelquinceComponent {
       //console.log('Las fichas no estan ordenadas');
       return false;
     }
+  }
+  guardarResultados() {
+    this.supabase
+      .addResultado(this.authService.currentUser()!.username, 'juegodelocho', this.movimientos, 'asc')
+      .subscribe({
+        next: (res) => console.log('Resultado:', res),
+        error: (err) => console.error('Error:', err),
+      });
+  }
+
+  verVentana(ver: boolean) {
+    this.verPuntajes = ver;
   }
 }

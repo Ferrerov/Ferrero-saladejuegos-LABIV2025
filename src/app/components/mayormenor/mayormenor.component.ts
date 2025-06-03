@@ -5,12 +5,15 @@ import { MatIcon } from '@angular/material/icon';
 import { CartaInterface, MazoCartasInterface } from '../../interfaces/carta.interface';
 import { ApiService } from '../../services/api.service';
 import { CommonModule } from '@angular/common';
+import { TablapuntajeComponent } from '../tablapuntaje/tablapuntaje.component';
+import { AuthService } from '../../services/auth.service';
+import { SupabaseDbService } from '../../services/supabase-db-service.service';
 
 
 @Component({
   selector: 'app-mayormenor',
   standalone: true,
-  imports: [MatCard, MatFabButton, MatIcon, CommonModule],
+  imports: [MatCard, MatFabButton, MatIcon, CommonModule,TablapuntajeComponent],
   templateUrl: './mayormenor.component.html',
   styleUrl: './mayormenor.component.scss'
 })
@@ -25,6 +28,8 @@ export class MayormenorComponent implements OnInit{
   primeraCartaDada: boolean = false;
   animacionActiva: boolean = false;
   verPuntajes: boolean = false;
+  authService = inject(AuthService);
+  supabase = inject(SupabaseDbService);
 
   ngOnInit(): void {
     this.obtenerMazo();
@@ -75,13 +80,17 @@ export class MayormenorComponent implements OnInit{
               (prediccion === 'menor' && valorActual < valorAnterior)) {
             this.puntos++;
             console.log('Adivinaste, puntos:', this.puntos);
-          } else {
+          } else if (valorActual === valorAnterior){
+            console.log('Son iguales, no ganas ni perdes puntos:', this.puntos);
+          }
+          else {
             this.vidas--;
             console.log('Fallaste, vidas restantes:', this.vidas);
           }
         }
         if(this.vidas == 0)
         {
+          this.guardarResultados();
           setTimeout(()=>{
             this.imagenCarta = "https://www.deckofcardsapi.com/static/img/back.png";
             this.activarAnimacion();
@@ -105,5 +114,18 @@ export class MayormenorComponent implements OnInit{
     setTimeout(() => {
       this.animacionActiva = false;
     }, 500); // La duración de la animación es de 0.5s
+  }
+
+    guardarResultados() {
+    this.supabase
+      .addResultado(this.authService.currentUser()!.username, 'mayormenor', this.puntos, 'desc')
+      .subscribe({
+        next: (res) => console.log('Resultado:', res),
+        error: (err) => console.error('Error:', err),
+      });
+  }
+
+  verVentana(ver: boolean) {
+    this.verPuntajes = ver;
   }
 }

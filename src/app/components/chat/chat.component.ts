@@ -1,81 +1,91 @@
-import { Component, inject, ViewChild, ElementRef, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  inject,
+  ViewChild,
+  ElementRef,
+  OnInit,
+  OnDestroy,
+  AfterViewChecked,
+} from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatCard, MatCardContent, MatCardFooter, MatCardHeader, MatCardTitle } from '@angular/material/card';
-import { MatFormField, MatFormFieldModule, MatLabel } from '@angular/material/form-field';
+import {
+  MatCard,
+  MatCardContent,
+  MatCardFooter,
+  MatCardHeader,
+  MatCardTitle,
+} from '@angular/material/card';
+import {
+  MatFormField,
+  MatFormFieldModule,
+  MatLabel,
+} from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInput, MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
-import { Subscription } from 'rxjs';
 import { SupabaseDbService } from '../../services/supabase-db-service.service';
 
 @Component({
   selector: 'app-chat',
   standalone: true,
-  imports: [CommonModule, MatCard, MatCardHeader, MatCardFooter, MatCardTitle, MatCardContent, MatFormField, MatIconModule, MatInput, FormsModule, MatFormFieldModule, MatInputModule, MatIconModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    MatCard,
+    MatCardHeader,
+    MatCardFooter,
+    MatCardTitle,
+    MatCardContent,
+    MatFormField,
+    MatIconModule,
+    MatInput,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    ReactiveFormsModule,
+  ],
   templateUrl: './chat.component.html',
-  styleUrl: './chat.component.scss'
+  styleUrl: './chat.component.scss',
 })
-export class ChatComponent implements OnInit, OnDestroy {
+export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
   authService = inject(AuthService);
   supabaseDbService = inject(SupabaseDbService);
-  nuevoMensaje: string = '';
-  mensajes: any = [{}];
+  nuevoMensaje = '';
   chatMinimizado = true;
+
   @ViewChild('mensajesContainer') mensajesContainer!: ElementRef;
-  mensajesSubscription!: Subscription;
 
-  ngOnInit(): void {
-    this.cargarMensajes();
+  get mensajes() {
+    return this.supabaseDbService.mensajes$(); // signal reactivo
   }
+
+  ngOnInit(): void {}
+
+  ngAfterViewChecked(): void {
+    this.scrollToBottom();
+  }
+
   ngOnDestroy(): void {
-    if (this.mensajesSubscription) {
-      this.mensajesSubscription.unsubscribe();
-    }
-    console.log('destroy chat');
+    this.supabaseDbService.removeMensajes();
   }
 
-  EnviarMensaje(){
-    console.log(this.nuevoMensaje);
-    this.guardarMensaje();
+  EnviarMensaje(): void {
+    const usuarioActual = this.authService.currentUser()!;
+    this.supabaseDbService
+      .addMensaje(usuarioActual.uid!, usuarioActual.username, this.nuevoMensaje)
+      .subscribe();
     this.nuevoMensaje = '';
   }
 
   scrollToBottom(): void {
     try {
-      this.mensajesContainer.nativeElement.scrollTop = this.mensajesContainer.nativeElement.scrollHeight;
-    } catch (err) {
-      //console.error('Error al hacer scroll');
-    }
+      this.mensajesContainer.nativeElement.scrollTop =
+        this.mensajesContainer.nativeElement.scrollHeight;
+    } catch (err) {}
   }
 
-  ngAfterViewChecked() {
-    this.scrollToBottom();
-  }
-
-  guardarMensaje()
-  {
-    const usuarioActual = this.authService.currentUser()!;
-    let fecha_envio = new Date();
-    //this.firestoreService.addMensaje(usuarioActual.uid!, usuarioActual.usuario, this.nuevoMensaje, fecha_envio);
-    this.supabaseDbService.addMensaje(usuarioActual.uid!, usuarioActual.username, this.nuevoMensaje).subscribe((mensaje) => {
-      console.log('Mensaje guardado:', mensaje);
-      this.cargarMensajes();
-    });
-  }
-  minimizarChat() {
+  minimizarChat(): void {
     this.chatMinimizado = !this.chatMinimizado;
-  }
-
-  cargarMensajes(){
-    if (this.mensajesSubscription) {
-      this.mensajesSubscription.unsubscribe();
-    }
-    this.mensajesSubscription = this.supabaseDbService.getMensajes().subscribe((mensajes) => {
-      this.mensajes = mensajes.sort((a, b) => {
-        return new Date(a.fecha_envio).getTime() - new Date(b.fecha_envio).getTime();
-      });
-      this.supabaseDbService.mensajesSig.set(this.mensajes);
-    });
   }
 }

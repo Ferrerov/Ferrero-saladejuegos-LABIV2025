@@ -155,4 +155,14 @@
       </div>
     </div>
   </div>
+  <div class="puntaje-historico">
+    <button mat-fab extended class="boton-puntaje" (click)="verVentana(true)">
+    <mat-icon class="icono-puntaje">menu</mat-icon>
+    Puntajes
+    </button>
+  </div>
+  @if(verPuntajes)
+  {
+    <app-tablapuntaje (ver)="verVentana($event)" [puntajeRequerido]="'mayormenor'" [ordenPuntos]="'desc'" [tipoPuntaje]="'aciertos'"></app-tablapuntaje>
+  }
 </div>

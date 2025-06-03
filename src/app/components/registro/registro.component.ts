@@ -75,9 +75,8 @@ export class RegistroComponent {
               this.errorSupabase = 'El correo ingresado no es valido';
               break;
             default:
-              'Error al registrarse';
+              this.errorSupabase = 'Error al registrarse';
           }
-          this.errorSupabase = result.error.message;
         } else {
           this.router.navigateByUrl('/home');
         }
